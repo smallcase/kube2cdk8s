@@ -30,7 +30,7 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v2
     - name: Test
-      run:  go test -v -cover ./...
+      run:  curl -fsSL https://get.pulumi.com | sh && ~/.pulumi/bin/pulumi plugin install resource kubernetes v2.4.2 && go test -v -cover ./...
   release:
     needs:
     - test

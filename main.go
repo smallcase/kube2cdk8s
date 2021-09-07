@@ -17,6 +17,7 @@ package main
 
 import (
 	"fmt"
+	"log"
 	"os"
 
 	"github.com/smallcase/kube2cdk8s/cmd"
@@ -32,7 +33,10 @@ func configureCLI() *cobra.Command {
 	rootCmd.AddCommand(cmd.TSCommand())
 
 	rootCmd.PersistentFlags().StringVarP(&manifestFile, "file", "f", "", "YAML file to convert")
-	viper.BindPFlag("file", rootCmd.PersistentFlags().Lookup("file"))
+	err := viper.BindPFlag("file", rootCmd.PersistentFlags().Lookup("file"))
+	if err != nil {
+		log.Println(err)
+	}
 
 	return rootCmd
 }
