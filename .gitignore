@@ -1,0 +1,5 @@
+app
+./kube2cdk8s
+temp.yaml
+.vscode
+.idea
