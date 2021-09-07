@@ -2,7 +2,6 @@ package kube2cdk8s
 
 import (
 	"io/ioutil"
-	"log"
 	"os"
 	"regexp"
 	"strings"
@@ -13,18 +12,13 @@ import (
 func Kube2CDK8S(filePath string) (string, error) {
 
 	path, _, err := kube2pulumi.Kube2PulumiFile(filePath, "typescript")
-
 	if err != nil {
 		return "", err
 	}
 
 	input, err := ioutil.ReadFile(path)
 	if err != nil {
-		log.Println(err)
-	}
-
-	if err != nil {
-		log.Println(err)
+		return "", err
 	}
 
 	lines := strings.Split(string(input), "\n")
