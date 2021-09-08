@@ -52,9 +52,18 @@ func Kube2CDK8S(filePath string) (string, error) {
 	res := re.ReplaceAllString(output, name)
 
 	re2 := regexp.MustCompile("(?m)[\r\n]+^.*apiVersion.*$")
-	res2 := re2.ReplaceAllString(res, "")
+	loc := re2.FindStringIndex(res)
+	res2 := res
+	if loc != nil {
+		res2 = res[:loc[0]] + res[loc[1]:]
+	}
+
 	re3 := regexp.MustCompile("(?m)[\r\n]+^.*kind.*$")
-	res3 := re3.ReplaceAllString(res2, "")
+	loc = re3.FindStringIndex(res2)
+	res3 := res2
+	if loc != nil {
+		res3 = res2[:loc[0]] + res2[loc[1]:]
+	}
 
 	defer os.Remove(path)
 
