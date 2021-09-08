@@ -15,17 +15,30 @@ func TSCommand() *cobra.Command {
 		Long: "convert k8s yaml to typescript",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			filePath := viper.GetString("file")
+			multiple := viper.GetBool("multiple")
+
+			var result string
 
 			if filePath == "" {
 				log.Fatal("-f, --file is required")
 			}
 
-			data, err := kube2cdk8s.Kube2CDK8S(filePath)
+			if multiple {
+				result, err := kube2cdk8s.Kube2CDK8SMultiple(filePath)
+				if err != nil {
+					return err
+				}
+
+				fmt.Print(result)
+				return nil
+			}
+
+			result, err := kube2cdk8s.Kube2CDK8S(filePath)
 			if err != nil {
 				return err
 			}
 
-			fmt.Print(data)
+			fmt.Print(result)
 			return nil
 		}}
 

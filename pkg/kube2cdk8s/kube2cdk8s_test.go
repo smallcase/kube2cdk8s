@@ -1,11 +1,11 @@
 package kube2cdk8s
 
 import (
-	"fmt"
-	"io/ioutil"
 	"log"
 	"os"
 	"testing"
+
+	"github.com/smallcase/kube2cdk8s/util"
 
 	"github.com/bradleyjkemp/cupaloy"
 )
@@ -20,7 +20,7 @@ metadata:
   name: my-service-account
   namespace: my-namespace
 `
-	serviceAccountFile, err := createTempFile([]byte(serviceAccount))
+	serviceAccountFile, err := util.CreateTempFile([]byte(serviceAccount))
 	if err != nil {
 		log.Println(err.Error())
 	}
@@ -63,7 +63,7 @@ spec:
         ports:
         - containerPort: 8080
 `
-	deploymentFile, err := createTempFile([]byte(deployment))
+	deploymentFile, err := util.CreateTempFile([]byte(deployment))
 	if err != nil {
 		log.Println(err.Error())
 	}
@@ -81,25 +81,199 @@ spec:
 	defer os.Remove(deploymentFile.Name())
 }
 
-func createTempFile(text []byte) (*os.File, error) {
-	tmpFile, err := ioutil.TempFile(os.TempDir(), "prefix-")
+func TestKube2CDK8SMultipleDeployment(t *testing.T) {
+
+	deployment := `
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: my-deployment
+  namespace: my-namespace
+spec:
+  selector:
+    matchLabels:
+      app: my-deployment
+  replicas: 3
+  template:
+    metadata:
+      labels:
+        app: my-deployment
+    spec:
+      containers:
+      - name: my-deployment
+        image: my-image
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 8080
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: my-deployment-2
+  namespace: my-namespace-2
+spec:
+  selector:
+    matchLabels:
+      app: my-deployment-2
+  replicas: 4
+  template:
+    metadata:
+      labels:
+        app: my-deployment-2
+    spec:
+      containers:
+      - name: my-deployment-2
+        image: my-image-2
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 8080
+---
+`
+	deploymentFile, err := util.CreateTempFile([]byte(deployment))
 	if err != nil {
-		return nil, err
+		log.Println(err.Error())
 	}
 
-	// Remember to clean up the file afterwards
-
-	fmt.Println("Created File: " + tmpFile.Name())
-
-	// Example writing to the file
-	if _, err = tmpFile.Write(text); err != nil {
-		return nil, err
+	d, err := Kube2CDK8SMultiple(deploymentFile.Name())
+	if err != nil {
+		log.Println(err.Error())
 	}
 
-	// Close the file
-	if err := tmpFile.Close(); err != nil {
-		return nil, err
+	err = cupaloy.Snapshot(d)
+	if err != nil {
+		t.Error(err.Error())
 	}
 
-	return tmpFile, nil
+	defer os.Remove(deploymentFile.Name())
+}
+
+func TestKube2CDK8SMultipleDeploymentTwo(t *testing.T) {
+
+	deployment := `---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: my-deployment
+  namespace: my-namespace
+spec:
+  selector:
+    matchLabels:
+      app: my-deployment
+  replicas: 3
+  template:
+    metadata:
+      labels:
+        app: my-deployment
+    spec:
+      containers:
+      - name: my-deployment
+        image: my-image
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 8080
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: my-deployment-2
+  namespace: my-namespace-2
+spec:
+  selector:
+    matchLabels:
+      app: my-deployment-2
+  replicas: 4
+  template:
+    metadata:
+      labels:
+        app: my-deployment-2
+    spec:
+      containers:
+      - name: my-deployment-2
+        image: my-image-2
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 8080
+---
+`
+	deploymentFile, err := util.CreateTempFile([]byte(deployment))
+	if err != nil {
+		log.Println(err.Error())
+	}
+
+	d, err := Kube2CDK8SMultiple(deploymentFile.Name())
+	if err != nil {
+		log.Println(err.Error())
+	}
+
+	err = cupaloy.Snapshot(d)
+	if err != nil {
+		t.Error(err.Error())
+	}
+
+	defer os.Remove(deploymentFile.Name())
+}
+
+func TestKube2CDK8SMultipleDeploymentThree(t *testing.T) {
+
+	deployment := `---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: my-deployment
+  namespace: my-namespace
+spec:
+  selector:
+    matchLabels:
+      app: my-deployment
+  replicas: 3
+  template:
+    metadata:
+      labels:
+        app: my-deployment
+    spec:
+      containers:
+      - name: my-deployment
+        image: my-image
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 8080
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: my-deployment-2
+  namespace: my-namespace-2
+spec:
+  selector:
+    matchLabels:
+      app: my-deployment-2
+  replicas: 4
+  template:
+    metadata:
+      labels:
+        app: my-deployment-2
+    spec:
+      containers:
+      - name: my-deployment-2
+        image: my-image-2
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 8080
+`
+	deploymentFile, err := util.CreateTempFile([]byte(deployment))
+	if err != nil {
+		log.Println(err.Error())
+	}
+
+	d, err := Kube2CDK8SMultiple(deploymentFile.Name())
+	if err != nil {
+		log.Println(err.Error())
+	}
+
+	err = cupaloy.Snapshot(d)
+	if err != nil {
+		t.Error(err.Error())
+	}
+
+	defer os.Remove(deploymentFile.Name())
 }

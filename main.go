@@ -25,7 +25,10 @@ import (
 	"github.com/spf13/viper"
 )
 
-var manifestFile string
+var (
+	manifestFile string
+	multiple     bool
+)
 
 func configureCLI() *cobra.Command {
 	rootCmd := &cobra.Command{Use: "kube2cdk8s", Long: "converts k8s yaml to cdk8s"}
@@ -34,6 +37,12 @@ func configureCLI() *cobra.Command {
 
 	rootCmd.PersistentFlags().StringVarP(&manifestFile, "file", "f", "", "YAML file to convert")
 	err := viper.BindPFlag("file", rootCmd.PersistentFlags().Lookup("file"))
+	if err != nil {
+		log.Println(err)
+	}
+
+	rootCmd.PersistentFlags().BoolVarP(&multiple, "multiple", "m", false, "convert multiple yamls seperated by ---")
+	err = viper.BindPFlag("multiple", rootCmd.PersistentFlags().Lookup("multiple"))
 	if err != nil {
 		log.Println(err)
 	}
