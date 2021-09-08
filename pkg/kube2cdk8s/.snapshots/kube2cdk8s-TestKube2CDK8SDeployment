@@ -1,4 +1,4 @@
-new cdk8s.ApiObject(this, "", {
+new k8s.KubeDeployment(this, "my-deployment", {
     apiVersion: "apps/v1",
     kind: "Deployment",
     metadata: {
