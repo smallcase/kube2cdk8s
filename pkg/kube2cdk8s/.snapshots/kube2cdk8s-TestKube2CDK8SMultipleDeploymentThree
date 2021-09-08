@@ -1,6 +1,4 @@
 new k8s.KubeDeployment(this, "my-deployment", {
-    apiVersion: "apps/v1",
-    kind: "Deployment",
     metadata: {
         name: "my-deployment",
         namespace: "my-namespace",
@@ -33,8 +31,6 @@ new k8s.KubeDeployment(this, "my-deployment", {
 });
 
 new k8s.KubeDeployment(this, "my-deployment-2", {
-    apiVersion: "apps/v1",
-    kind: "Deployment",
     metadata: {
         name: "my-deployment-2",
         namespace: "my-namespace-2",
