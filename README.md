@@ -28,7 +28,7 @@ metadata:
 
 ```
 $ go build
-$ kube2cdk8s -f temp.yaml
+$ ./kube2cdk8s typescript -f temp.yaml
 new cdk8s.ApiObject("", this, {
     apiVersion: "v1",
     kind: "ServiceAccount",
