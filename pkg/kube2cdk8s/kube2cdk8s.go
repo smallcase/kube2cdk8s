@@ -51,9 +51,14 @@ func Kube2CDK8S(filePath string) (string, error) {
 	re := regexp.MustCompile("(?m)[\r\n]+^.*const.*$")
 	res := re.ReplaceAllString(output, name)
 
+	re2 := regexp.MustCompile("(?m)[\r\n]+^.*apiVersion.*$")
+	res2 := re2.ReplaceAllString(res, "")
+	re3 := regexp.MustCompile("(?m)[\r\n]+^.*kind.*$")
+	res3 := re3.ReplaceAllString(res2, "")
+
 	defer os.Remove(path)
 
-	return res, nil
+	return res3, nil
 }
 
 func Kube2CDK8SMultiple(filePath string) (string, error) {
