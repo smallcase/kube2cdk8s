@@ -277,3 +277,39 @@ spec:
 
 	defer os.Remove(deploymentFile.Name())
 }
+
+func TestKube2CDK8SRole(t *testing.T) {
+
+	role := `apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  labels:
+    app.kubernetes.io/component: application-controller
+    app.kubernetes.io/name: argocd-application-controller
+    app.kubernetes.io/part-of: argocd
+  name: argocd-application-controller
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: Role
+  name: argocd-application-controller
+subjects:
+- kind: ServiceAccount
+  name: argocd-application-controller
+`
+	roleFile, err := util.CreateTempFile([]byte(role))
+	if err != nil {
+		log.Println(err.Error())
+	}
+
+	d, err := Kube2CDK8S(roleFile.Name())
+	if err != nil {
+		log.Println(err.Error())
+	}
+
+	err = cupaloy.Snapshot(d)
+	if err != nil {
+		t.Error(err.Error())
+	}
+
+	defer os.Remove(roleFile.Name())
+}
