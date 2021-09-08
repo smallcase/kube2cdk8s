@@ -1,6 +1,6 @@
 # kube2cdk8s
 
-A hacky way to generate cdk8s APIObject from a k8s yaml.
+Converts your k8s YAML to a cdk8s Api Object.
 
 Uses Pulumi's kube2pulumi as a base.
 
