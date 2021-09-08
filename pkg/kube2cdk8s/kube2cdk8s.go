@@ -32,7 +32,7 @@ func Kube2CDK8S(filePath string) (string, error) {
 	output := strings.Join(lines, "\n")
 
 	re := regexp.MustCompile("(?m)[\r\n]+^.*const.*$")
-	res := re.ReplaceAllString(output, `new cdk8s.ApiObject("", this, {`)
+	res := re.ReplaceAllString(output, `new cdk8s.ApiObject(this, "", {`)
 
 	defer os.Remove(path)
 
