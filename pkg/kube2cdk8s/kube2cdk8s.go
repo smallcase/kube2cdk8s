@@ -67,6 +67,11 @@ func Kube2CDK8SMultiple(filePath string) (string, error) {
 
 		result += res
 		result += "\n"
+
+		err = os.Remove(f.Name())
+		if err != nil {
+			return "", err
+		}
 	}
 
 	return result, nil
