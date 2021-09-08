@@ -1,13 +1,16 @@
 package kube2cdk8s
 
 import (
+	"fmt"
 	"io/ioutil"
 	"os"
+	"path/filepath"
 	"regexp"
 	"strings"
 
 	"github.com/pulumi/kube2pulumi/pkg/kube2pulumi"
 	"github.com/smallcase/kube2cdk8s/util"
+	"github.com/spf13/viper"
 )
 
 func Kube2CDK8S(filePath string) (string, error) {
@@ -31,8 +34,22 @@ func Kube2CDK8S(filePath string) (string, error) {
 	}
 	output := strings.Join(lines, "\n")
 
+	viper.New()
+	viper.AddConfigPath("/tmp")
+	viper.SetConfigName(filepath.Base(filePath))
+	viper.SetConfigType("yaml")
+
+	if err := viper.ReadInConfig(); err != nil {
+		return "", err
+	}
+
+	n := viper.GetString("metadata.name")
+	k := viper.GetString("kind")
+
+	name := fmt.Sprintf("new k8s.Kube%s(this, \"%s\", {", k, n)
+
 	re := regexp.MustCompile("(?m)[\r\n]+^.*const.*$")
-	res := re.ReplaceAllString(output, `new cdk8s.ApiObject(this, "", {`)
+	res := re.ReplaceAllString(output, name)
 
 	defer os.Remove(path)
 

@@ -31,7 +31,7 @@ metadata:
 ```
 ```
 $ ./kube2cdk8s typescript -f temp.yaml
-new cdk8s.ApiObject("", this, {
+new k8s.KubeServiceAccount("", this, {
     apiVersion: "v1",
     kind: "ServiceAccount",
     metadata: {
@@ -88,7 +88,7 @@ spec:
 ```
 ```
 $ ./kube2cdk8s typescript -m true -f temp.yaml
-new cdk8s.ApiObject("", this, {
+new k8s.KubeDeployment("", this, {
     apiVersion: "apps/v1",
     kind: "Deployment",
     metadata: {
@@ -122,7 +122,7 @@ new cdk8s.ApiObject("", this, {
     },
 });
 
-new cdk8s.ApiObject("", this, {
+new k8s.KubeDeployment("", this, {
     apiVersion: "apps/v1",
     kind: "Deployment",
     metadata: {
