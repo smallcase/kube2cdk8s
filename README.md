@@ -32,8 +32,6 @@ metadata:
 ```
 $ ./kube2cdk8s typescript -f temp.yaml
 new k8s.KubeServiceAccount("", this, {
-    apiVersion: "v1",
-    kind: "ServiceAccount",
     metadata: {
         name: "my-service-account",
         namespace: "my-namespace",
@@ -89,8 +87,6 @@ spec:
 ```
 $ ./kube2cdk8s typescript -m true -f temp.yaml
 new k8s.KubeDeployment("", this, {
-    apiVersion: "apps/v1",
-    kind: "Deployment",
     metadata: {
         name: "my-deployment",
         namespace: "my-namespace",
@@ -123,8 +119,6 @@ new k8s.KubeDeployment("", this, {
 });
 
 new k8s.KubeDeployment("", this, {
-    apiVersion: "apps/v1",
-    kind: "Deployment",
     metadata: {
         name: "my-deployment-2",
         namespace: "my-namespace-2",
