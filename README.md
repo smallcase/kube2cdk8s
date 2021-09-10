@@ -118,7 +118,7 @@ new k8s.KubeDeployment(this, "my-deployment", {
     },
 });
 
-new k8s.KubeDeployment(this, "my-deployment-2" {
+new k8s.KubeDeployment(this, "my-deployment-2", {
     metadata: {
         name: "my-deployment-2",
         namespace: "my-namespace-2",
