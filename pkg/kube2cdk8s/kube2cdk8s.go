@@ -14,8 +14,7 @@ import (
 )
 
 func Kube2CDK8S(filePath string) (string, error) {
-
-	path, _, err := kube2pulumi.Kube2PulumiFile(filePath, "typescript")
+	path, _, err := kube2pulumi.Kube2PulumiFile(filePath, "", "typescript")
 	if err != nil {
 		return "", err
 	}
@@ -71,7 +70,6 @@ func Kube2CDK8S(filePath string) (string, error) {
 }
 
 func Kube2CDK8SMultiple(filePath string) (string, error) {
-
 	var result string
 
 	input, err := ioutil.ReadFile(filePath)

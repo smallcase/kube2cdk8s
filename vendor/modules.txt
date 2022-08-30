@@ -34,8 +34,6 @@ github.com/goccy/go-yaml/parser
 github.com/goccy/go-yaml/printer
 github.com/goccy/go-yaml/scanner
 github.com/goccy/go-yaml/token
-# github.com/gofrs/flock v0.7.1
-github.com/gofrs/flock
 # github.com/gofrs/uuid v3.3.0+incompatible
 github.com/gofrs/uuid
 # github.com/gogo/protobuf v1.3.2
@@ -123,23 +121,24 @@ github.com/pgavlin/goldmark/util
 github.com/pkg/errors
 # github.com/pmezard/go-difflib v1.0.0
 github.com/pmezard/go-difflib/difflib
-# github.com/pulumi/kube2pulumi v0.0.10
+# github.com/pulumi/kube2pulumi v0.0.11
 ## explicit
 github.com/pulumi/kube2pulumi/pkg/kube2pulumi
 github.com/pulumi/kube2pulumi/pkg/pcl2pulumi
 github.com/pulumi/kube2pulumi/pkg/yaml2pcl
-# github.com/pulumi/pulumi/pkg/v3 v3.4.0
+# github.com/pulumi/pulumi/pkg/v3 v3.24.1
 github.com/pulumi/pulumi/pkg/v3/codegen
 github.com/pulumi/pulumi/pkg/v3/codegen/dotnet
 github.com/pulumi/pulumi/pkg/v3/codegen/go
-github.com/pulumi/pulumi/pkg/v3/codegen/hcl2
 github.com/pulumi/pulumi/pkg/v3/codegen/hcl2/model
 github.com/pulumi/pulumi/pkg/v3/codegen/hcl2/model/format
 github.com/pulumi/pulumi/pkg/v3/codegen/hcl2/syntax
+github.com/pulumi/pulumi/pkg/v3/codegen/internal/tstypes
 github.com/pulumi/pulumi/pkg/v3/codegen/nodejs
+github.com/pulumi/pulumi/pkg/v3/codegen/pcl
 github.com/pulumi/pulumi/pkg/v3/codegen/python
 github.com/pulumi/pulumi/pkg/v3/codegen/schema
-# github.com/pulumi/pulumi/sdk/v3 v3.4.0
+# github.com/pulumi/pulumi/sdk/v3 v3.24.1
 github.com/pulumi/pulumi/sdk/v3/go/common/apitype
 github.com/pulumi/pulumi/sdk/v3/go/common/diag
 github.com/pulumi/pulumi/sdk/v3/go/common/diag/colors
@@ -166,8 +165,17 @@ github.com/pulumi/pulumi/sdk/v3/go/common/workspace
 github.com/pulumi/pulumi/sdk/v3/nodejs/npm
 github.com/pulumi/pulumi/sdk/v3/proto/go
 github.com/pulumi/pulumi/sdk/v3/python
+# github.com/rivo/uniseg v0.2.0
+github.com/rivo/uniseg
+# github.com/rogpeppe/go-internal v1.8.1
+github.com/rogpeppe/go-internal/internal/syscall/windows
+github.com/rogpeppe/go-internal/internal/syscall/windows/sysdll
+github.com/rogpeppe/go-internal/lockedfile
+github.com/rogpeppe/go-internal/lockedfile/internal/filelock
 # github.com/sabhiram/go-gitignore v0.0.0-20180611051255-d3107576ba94
 github.com/sabhiram/go-gitignore
+# github.com/santhosh-tekuri/jsonschema/v5 v5.0.0
+github.com/santhosh-tekuri/jsonschema/v5
 # github.com/sergi/go-diff v1.1.0
 github.com/sergi/go-diff/diffmatchpatch
 # github.com/spf13/afero v1.6.0
@@ -257,8 +265,7 @@ golang.org/x/net/internal/socks
 golang.org/x/net/internal/timeseries
 golang.org/x/net/proxy
 golang.org/x/net/trace
-# golang.org/x/sys v0.0.0-20210616094352-59db8d763f22
-## explicit
+# golang.org/x/sys v0.0.0-20210817190340-bfb29a6856f2
 golang.org/x/sys/cpu
 golang.org/x/sys/internal/unsafeheader
 golang.org/x/sys/plan9
@@ -413,6 +420,8 @@ gopkg.in/src-d/go-git.v4/utils/merkletrie/noder
 gopkg.in/warnings.v0
 # gopkg.in/yaml.v2 v2.4.0
 gopkg.in/yaml.v2
+# gopkg.in/yaml.v3 v3.0.0-20210107192922-496545a6307b
+gopkg.in/yaml.v3
 # sourcegraph.com/sourcegraph/appdash v0.0.0-20190731080439-ebfcffb1b5c0
 sourcegraph.com/sourcegraph/appdash
 sourcegraph.com/sourcegraph/appdash/internal/wire
