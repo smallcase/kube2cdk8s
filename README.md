@@ -13,7 +13,7 @@ Uses Pulumi's kube2pulumi as a base.
 
 ```
 $ curl -fsSL https://get.pulumi.com | sh
-$ pulumi plugin install resource kubernetes v2.4.2
+$ pulumi plugin install resource kubernetes v3.0.0
 ```
 
 ## Usage
