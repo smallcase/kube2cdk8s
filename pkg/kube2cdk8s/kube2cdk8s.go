@@ -2,7 +2,6 @@ package kube2cdk8s
 
 import (
 	"fmt"
-	"io/ioutil"
 	"os"
 	"path/filepath"
 	"regexp"
@@ -19,7 +18,7 @@ func Kube2CDK8S(filePath string) (string, error) {
 		return "", err
 	}
 
-	input, err := ioutil.ReadFile(path)
+	input, err := os.ReadFile(path)
 	if err != nil {
 		return "", err
 	}
@@ -72,7 +71,7 @@ func Kube2CDK8S(filePath string) (string, error) {
 func Kube2CDK8SMultiple(filePath string) (string, error) {
 	var result string
 
-	input, err := ioutil.ReadFile(filePath)
+	input, err := os.ReadFile(filePath)
 	if err != nil {
 		return "", err
 	}

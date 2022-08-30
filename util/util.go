@@ -1,12 +1,11 @@
 package util
 
 import (
-	"io/ioutil"
 	"os"
 )
 
 func CreateTempFile(text []byte) (*os.File, error) {
-	tmpFile, err := ioutil.TempFile(os.TempDir(), "prefix-")
+	tmpFile, err := os.CreateTemp(os.TempDir(), "prefix-")
 	if err != nil {
 		return nil, err
 	}
